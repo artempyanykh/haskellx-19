@@ -1,0 +1,9 @@
+* Questions
+** Why changing ~DynamicGhcPrograms~ doesn't trigger ~exe~ rebuild
+Currently, it seems the only way to rebuild binaries is to =rm bin/= and trigger a build with another flavor.
+*** Related rules seem to be in =hadrian/../Program.hs/buildBinary=
+*** TODO How does shake tracks dependency on flags (or in this case =DynamicGhcPrograms= flag)?
+** TODO How GHCi checks if an object file is valid for loading
+** TODO Prepare examples to show difference between -static and -dynamic linking
+*** asm and relocs in object files
+*** behaviour wrt to GHCi
