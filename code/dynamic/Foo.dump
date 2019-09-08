@@ -1,0 +1,266 @@
+Foo.o:
+(__TEXT,__text) section
+_s2Bq_info_dsp:
+	01 00 	addl	%eax, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	10 00 	adcb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _u2Cq_srt-_s2Bq_info(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+_s2Bq_info:
+	48 8d 45 d8 	leaq	-40(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 44 	jb	0x5d
+	48 8b 05 00 00 00 00 	movq	_stg_upd_frame_info(%rip), %rax
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	4c 8b 35 00 00 00 00 	movq	_base_GHCziNum_zdfNumInt_closure(%rip), %r14
+	48 8b 1d 00 00 00 00 	movq	_stg_ap_pp_info(%rip), %rbx
+	48 89 5d d8 	movq	%rbx, -40(%rbp)
+	48 89 45 e0 	movq	%rax, -32(%rbp)
+	48 8b 05 00 00 00 00 	movq	_stg_INTLIKE_closure(%rip), %rax
+	48 05 21 01 00 00 	addq	$289, %rax
+	48 89 45 e8 	movq	%rax, -24(%rbp)
+	48 83 c5 d8 	addq	$-40, %rbp
+	ff 25 00 00 00 00 	jmpq	*_base_GHCziNum_zm_info(%rip)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	00 00 	addb	%al, _s2Bq_info-_s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	0f 1f 00 	nopl	_s2Bq_info_dsp(%rax)
+_s2Br_info_dsp:
+	01 00 	addl	%eax, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	10 00 	adcb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _Foo_fib_closure-_s2Br_info(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+_s2Br_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4c 	jb	0xcd
+	49 83 c4 18 	addq	$24, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 34 	ja	0xc2
+	48 8b 05 00 00 00 00 	movq	_stg_upd_frame_info(%rip), %rax
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	48 8d 1d 00 00 00 00 	leaq	_s2Bq_info(%rip), %rbx
+	49 89 5c 24 f0 	movq	%rbx, -16(%r12)
+	49 89 04 24 	movq	%rax, _s2Bq_info_dsp(%r12)
+	49 8d 44 24 f0 	leaq	-16(%r12), %rax
+	49 89 c6 	movq	%rax, %r14
+	48 83 c5 f0 	addq	$-16, %rbp
+	e9 00 00 00 00 	jmp	_Foo_fib_info
+	49 c7 85 88 03 00 00 18 00 00 00 	movq	$24, 904(%r13)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	00 00 	addb	%al, _s2Br_info-_s2Br_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	0f 1f 00 	nopl	_s2Bq_info_dsp(%rax)
+_s2Bn_info_dsp:
+	01 00 	addl	%eax, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	10 00 	adcb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _u2Cq_srt-_s2Bn_info(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+_s2Bn_info:
+	48 8d 45 d8 	leaq	-40(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 44 	jb	0x135
+	48 8b 05 00 00 00 00 	movq	_stg_upd_frame_info(%rip), %rax
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	4c 8b 35 00 00 00 00 	movq	_base_GHCziNum_zdfNumInt_closure(%rip), %r14
+	48 8b 1d 00 00 00 00 	movq	_stg_ap_pp_info(%rip), %rbx
+	48 89 5d d8 	movq	%rbx, -40(%rbp)
+	48 89 45 e0 	movq	%rax, -32(%rbp)
+	48 8b 05 00 00 00 00 	movq	_stg_INTLIKE_closure(%rip), %rax
+	48 05 11 01 00 00 	addq	$273, %rax
+	48 89 45 e8 	movq	%rax, -24(%rbp)
+	48 83 c5 d8 	addq	$-40, %rbp
+	ff 25 00 00 00 00 	jmpq	*_base_GHCziNum_zm_info(%rip)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	00 00 	addb	%al, _s2Bn_info-_s2Bn_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	0f 1f 00 	nopl	_s2Bq_info_dsp(%rax)
+_s2Bo_info_dsp:
+	01 00 	addl	%eax, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	10 00 	adcb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _Foo_fib_closure-_s2Bo_info(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+_s2Bo_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4c 	jb	0x1a5
+	49 83 c4 18 	addq	$24, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 34 	ja	0x19a
+	48 8b 05 00 00 00 00 	movq	_stg_upd_frame_info(%rip), %rax
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	48 8d 1d 00 00 00 00 	leaq	_s2Bn_info(%rip), %rbx
+	49 89 5c 24 f0 	movq	%rbx, -16(%r12)
+	49 89 04 24 	movq	%rax, _s2Bq_info_dsp(%r12)
+	49 8d 44 24 f0 	leaq	-16(%r12), %rax
+	49 89 c6 	movq	%rax, %r14
+	48 83 c5 f0 	addq	$-16, %rbp
+	e9 00 00 00 00 	jmp	_Foo_fib_info
+	49 c7 85 88 03 00 00 18 00 00 00 	movq	$24, 904(%r13)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	00 00 	addb	%al, _s2Bo_info-_s2Bo_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	0f 1f 00 	nopl	_s2Bq_info_dsp(%rax)
+_Foo_fib_info_dsp:
+	05 00 00 00 01 	addl	$16777216, %eax
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 01 	addb	%al, _s2Bq_info_dsp(%rcx)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 0e 	addb	%cl, _s2Bq_info_dsp(%rsi)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 48 8d 	addb	%cl, -115(%rax)
+_Foo_fib_info:
+	48 8d 45 e8 	leaq	-24(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	0f 82 2f 00 00 00 	jb	_c2BC_info+47
+	48 8d 05 00 00 00 00 	leaq	_c2BC_info(%rip), %rax
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	4c 89 f3 	movq	%r14, %rbx
+	48 83 c5 f8 	addq	$-8, %rbp
+	f6 c3 07 	testb	$7, %bl
+	0f 85 00 00 00 00 	jne	_c2BC_info
+	ff 23 	jmpq	*_s2Bq_info_dsp(%rbx)
+	66 0f 1f 44 00 00 	nopw	(%rax,%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+		.byte 0x1e #bad opcode
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 49 83 	addb	%cl, -125(%rcx)
+_c2BC_info:
+	49 83 c4 30 	addq	$48, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 2d 	ja	0x242
+	48 8b 43 07 	movq	7(%rbx), %rax
+	48 85 c0 	testq	%rax, %rax
+	75 35 	jne	0x253
+	49 83 c4 d0 	addq	$-48, %r12
+	48 8b 05 00 00 00 00 	movq	_stg_INTLIKE_closure(%rip), %rax
+	48 8d 98 11 01 00 00 	leaq	273(%rax), %rbx
+	48 83 c5 08 	addq	$8, %rbp
+	ff 65 00 	jmpq	*(%rbp)
+	48 8d 1d 00 00 00 00 	leaq	_Foo_fib_closure(%rip), %rbx
+	41 ff 65 f8 	jmpq	*-8(%r13)
+	49 c7 85 88 03 00 00 30 00 00 00 	movq	$48, 904(%r13)
+	ff 25 00 00 00 00 	jmpq	*_stg_gc_unpt_r1(%rip)
+	48 83 f8 01 	cmpq	$1, %rax
+	75 19 	jne	0x272
+	49 83 c4 d0 	addq	$-48, %r12
+	48 8b 05 00 00 00 00 	movq	_stg_INTLIKE_closure(%rip), %rax
+	48 8d 98 11 01 00 00 	leaq	273(%rax), %rbx
+	48 83 c5 08 	addq	$8, %rbp
+	ff 65 00 	jmpq	*(%rbp)
+	48 8d 05 00 00 00 00 	leaq	_s2Br_info(%rip), %rax
+	49 89 44 24 d8 	movq	%rax, -40(%r12)
+	49 89 5c 24 e8 	movq	%rbx, -24(%r12)
+	49 8d 44 24 d8 	leaq	-40(%r12), %rax
+	48 8d 0d 00 00 00 00 	leaq	_s2Bo_info(%rip), %rcx
+	49 89 4c 24 f0 	movq	%rcx, -16(%r12)
+	49 89 1c 24 	movq	%rbx, _s2Bq_info_dsp(%r12)
+	49 8d 5c 24 f0 	leaq	-16(%r12), %rbx
+	4c 8b 35 00 00 00 00 	movq	_base_GHCziNum_zdfNumInt_closure(%rip), %r14
+	48 8b 0d 00 00 00 00 	movq	_stg_ap_pp_info(%rip), %rcx
+	48 89 4d f0 	movq	%rcx, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 89 45 00 	movq	%rax, (%rbp)
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 00 00 00 00 	jmpq	*_base_GHCziNum_zp_info(%rip)
+	00 00 	addb	%al, _Foo_fib_info-_Foo_fib_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	0f 1f 00 	nopl	_s2Bq_info_dsp(%rax)
+_s2Bs_info_dsp:
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	15 00 00 00 00 	adcl	$_s2Bq_info_dsp, %eax
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 48 8d 	addb	%cl, -115(%rax)
+_s2Bs_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 46 	jb	0x327
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 00 00 00 00 	callq	_newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 27 	je	0x325
+	48 8b 1d 00 00 00 00 	movq	_stg_bh_upd_frame_info(%rip), %rbx
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	4c 8b 35 00 00 00 00 	movq	_base_GHCziNum_zdfNumInt_closure(%rip), %r14
+	48 8b 1d 00 00 00 00 	movq	_Bar_bar_closure(%rip), %rbx
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 00 00 00 00 	jmpq	*_stg_ap_p_fast(%rip)
+	ff 23 	jmpq	*_s2Bq_info_dsp(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	00 00 	addb	%al, _s2Bs_info-_s2Bs_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	90 	nop
+_Foo_fibBar_info_dsp:
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	15 00 00 00 00 	adcl	$_s2Bq_info_dsp, %eax
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)
+	00 48 8d 	addb	%cl, -115(%rax)
+_Foo_fibBar_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4d 	jb	0x396
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 00 00 00 00 	callq	_newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 2e 	je	0x394
+	48 8b 1d 00 00 00 00 	movq	_stg_bh_upd_frame_info(%rip), %rbx
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	48 8d 35 00 00 00 00 	leaq	_s2Bs_closure(%rip), %rsi
+	4c 8d 35 01 00 00 00 	leaq	_Foo_fib_closure+1(%rip), %r14
+	48 8b 1d 00 00 00 00 	movq	_base_GHCziBase_zi_closure(%rip), %rbx
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 00 00 00 00 	jmpq	*_stg_ap_pp_fast(%rip)
+	ff 23 	jmpq	*_s2Bq_info_dsp(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	00 00 	addb	%al, _Foo_fibBar_info-_Foo_fibBar_info_dsp(%rax)
+	00 00 	addb	%al, _s2Bq_info_dsp(%rax)

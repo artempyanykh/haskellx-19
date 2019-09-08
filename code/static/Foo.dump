@@ -1,0 +1,262 @@
+Foo.o:
+(__TEXT,__text) section
+_s2Bq_info_dsp:
+	01 00 	add	dword ptr [rax + _s2Bq_info_dsp], eax
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	10 00 	adc	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _u2Cq_srt-_s2Bq_info], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+_s2Bq_info:
+	48 8d 45 d8 	lea	rax, [rbp - 40]
+	4c 39 f8 	cmp	rax, r15
+	72 3d 	jb	0x56
+	48 8d 05 00 00 00 00 	lea	rax, [rip + _stg_upd_frame_info]
+	48 89 45 f0 	mov	qword ptr [rbp - 16], rax
+	48 89 5d f8 	mov	qword ptr [rbp - 8], rbx
+	48 8b 43 10 	mov	rax, qword ptr [rbx + 16]
+	4c 8d 35 00 00 00 00 	lea	r14, [rip + _base_GHCziNum_zdfNumInt_closure]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _stg_ap_pp_info]
+	48 89 5d d8 	mov	qword ptr [rbp - 40], rbx
+	48 89 45 e0 	mov	qword ptr [rbp - 32], rax
+	48 8d 05 21 01 00 00 	lea	rax, [rip + _stg_INTLIKE_closure+289]
+	48 89 45 e8 	mov	qword ptr [rbp - 24], rax
+	48 83 c5 d8 	add	rbp, -40
+	e9 00 00 00 00 	jmp	_base_GHCziNum_zm_info
+	41 ff 65 f0 	jmp	qword ptr [r13 - 16]
+	00 00 	add	byte ptr [rax + _s2Bq_info-_s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	66 90 	nop
+_s2Br_info_dsp:
+	01 00 	add	dword ptr [rax + _s2Bq_info_dsp], eax
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	10 00 	adc	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _Foo_fib_closure-_s2Br_info], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+_s2Br_info:
+	48 8d 45 f0 	lea	rax, [rbp - 16]
+	4c 39 f8 	cmp	rax, r15
+	72 4c 	jb	0xc5
+	49 83 c4 18 	add	r12, 24
+	4d 3b a5 58 03 00 00 	cmp	r12, qword ptr [r13 + 856]
+	77 34 	ja	0xba
+	48 8d 05 00 00 00 00 	lea	rax, [rip + _stg_upd_frame_info]
+	48 89 45 f0 	mov	qword ptr [rbp - 16], rax
+	48 89 5d f8 	mov	qword ptr [rbp - 8], rbx
+	48 8b 43 10 	mov	rax, qword ptr [rbx + 16]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _s2Bq_info]
+	49 89 5c 24 f0 	mov	qword ptr [r12 - 16], rbx
+	49 89 04 24 	mov	qword ptr [r12 + _s2Bq_info_dsp], rax
+	49 8d 44 24 f0 	lea	rax, [r12 - 16]
+	49 89 c6 	mov	r14, rax
+	48 83 c5 f0 	add	rbp, -16
+	e9 00 00 00 00 	jmp	_Foo_fib_info
+	49 c7 85 88 03 00 00 18 00 00 00 	mov	qword ptr [r13 + _r2Be_closure], 24
+	41 ff 65 f0 	jmp	qword ptr [r13 - 16]
+	00 00 	add	byte ptr [rax + _s2Br_info-_s2Br_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	0f 1f 00 	nop	dword ptr [rax + _s2Bq_info_dsp]
+_s2Bn_info_dsp:
+	01 00 	add	dword ptr [rax + _s2Bq_info_dsp], eax
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	10 00 	adc	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _u2Cq_srt-_s2Bn_info], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+_s2Bn_info:
+	48 8d 45 d8 	lea	rax, [rbp - 40]
+	4c 39 f8 	cmp	rax, r15
+	72 3d 	jb	0x126
+	48 8d 05 00 00 00 00 	lea	rax, [rip + _stg_upd_frame_info]
+	48 89 45 f0 	mov	qword ptr [rbp - 16], rax
+	48 89 5d f8 	mov	qword ptr [rbp - 8], rbx
+	48 8b 43 10 	mov	rax, qword ptr [rbx + 16]
+	4c 8d 35 00 00 00 00 	lea	r14, [rip + _base_GHCziNum_zdfNumInt_closure]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _stg_ap_pp_info]
+	48 89 5d d8 	mov	qword ptr [rbp - 40], rbx
+	48 89 45 e0 	mov	qword ptr [rbp - 32], rax
+	48 8d 05 11 01 00 00 	lea	rax, [rip + _stg_INTLIKE_closure+273]
+	48 89 45 e8 	mov	qword ptr [rbp - 24], rax
+	48 83 c5 d8 	add	rbp, -40
+	e9 00 00 00 00 	jmp	_base_GHCziNum_zm_info
+	41 ff 65 f0 	jmp	qword ptr [r13 - 16]
+	00 00 	add	byte ptr [rax + _s2Bn_info-_s2Bn_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	66 90 	nop
+_s2Bo_info_dsp:
+	01 00 	add	dword ptr [rax + _s2Bq_info_dsp], eax
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	10 00 	adc	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _Foo_fib_closure-_s2Bo_info], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+_s2Bo_info:
+	48 8d 45 f0 	lea	rax, [rbp - 16]
+	4c 39 f8 	cmp	rax, r15
+	72 4c 	jb	0x195
+	49 83 c4 18 	add	r12, 24
+	4d 3b a5 58 03 00 00 	cmp	r12, qword ptr [r13 + 856]
+	77 34 	ja	0x18a
+	48 8d 05 00 00 00 00 	lea	rax, [rip + _stg_upd_frame_info]
+	48 89 45 f0 	mov	qword ptr [rbp - 16], rax
+	48 89 5d f8 	mov	qword ptr [rbp - 8], rbx
+	48 8b 43 10 	mov	rax, qword ptr [rbx + 16]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _s2Bn_info]
+	49 89 5c 24 f0 	mov	qword ptr [r12 - 16], rbx
+	49 89 04 24 	mov	qword ptr [r12 + _s2Bq_info_dsp], rax
+	49 8d 44 24 f0 	lea	rax, [r12 - 16]
+	49 89 c6 	mov	r14, rax
+	48 83 c5 f0 	add	rbp, -16
+	e9 00 00 00 00 	jmp	_Foo_fib_info
+	49 c7 85 88 03 00 00 18 00 00 00 	mov	qword ptr [r13 + _r2Be_closure], 24
+	41 ff 65 f0 	jmp	qword ptr [r13 - 16]
+	00 00 	add	byte ptr [rax + _s2Bo_info-_s2Bo_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	0f 1f 00 	nop	dword ptr [rax + _s2Bq_info_dsp]
+_Foo_fib_info_dsp:
+	05 00 00 00 01 	add	eax, 16777216
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 01 	add	byte ptr [rcx + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 0e 	add	byte ptr [rsi + _s2Bq_info_dsp], cl
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 48 8d 	add	byte ptr [rax - 115], cl
+_Foo_fib_info:
+	48 8d 45 e8 	lea	rax, [rbp - 24]
+	4c 39 f8 	cmp	rax, r15
+	0f 82 28 00 00 00 	jb	_c2BC_info+40
+	48 8d 05 00 00 00 00 	lea	rax, [rip + _c2BC_info]
+	48 89 45 f8 	mov	qword ptr [rbp - 8], rax
+	4c 89 f3 	mov	rbx, r14
+	48 83 c5 f8 	add	rbp, -8
+	f6 c3 07 	test	bl, 7
+	0f 85 00 00 00 00 	jne	_c2BC_info
+	ff 23 	jmp	qword ptr [rbx + _s2Bq_info_dsp]
+	66 0f 1f 44 00 00 	nop	word ptr [rax + rax]
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+		.byte 0x1e #bad opcode
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 49 83 	add	byte ptr [rcx - 125], cl
+_c2BC_info:
+	49 83 c4 30 	add	r12, 48
+	4d 3b a5 58 03 00 00 	cmp	r12, qword ptr [r13 + 856]
+	77 26 	ja	0x22b
+	48 8b 43 07 	mov	rax, qword ptr [rbx + 7]
+	48 85 c0 	test	rax, rax
+	75 2d 	jne	0x23b
+	49 83 c4 d0 	add	r12, -48
+	48 8d 1d 11 01 00 00 	lea	rbx, [rip + _stg_INTLIKE_closure+273]
+	48 83 c5 08 	add	rbp, 8
+	ff 65 00 	jmp	qword ptr [rbp]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _Foo_fib_closure]
+	41 ff 65 f8 	jmp	qword ptr [r13 - 8]
+	49 c7 85 88 03 00 00 30 00 00 00 	mov	qword ptr [r13 + _r2Be_closure], 48
+	e9 00 00 00 00 	jmp	_stg_gc_unpt_r1
+	48 83 f8 01 	cmp	rax, 1
+	75 12 	jne	0x253
+	49 83 c4 d0 	add	r12, -48
+	48 8d 1d 11 01 00 00 	lea	rbx, [rip + _stg_INTLIKE_closure+273]
+	48 83 c5 08 	add	rbp, 8
+	ff 65 00 	jmp	qword ptr [rbp]
+	48 8d 05 00 00 00 00 	lea	rax, [rip + _s2Br_info]
+	49 89 44 24 d8 	mov	qword ptr [r12 - 40], rax
+	49 89 5c 24 e8 	mov	qword ptr [r12 - 24], rbx
+	49 8d 44 24 d8 	lea	rax, [r12 - 40]
+	48 8d 0d 00 00 00 00 	lea	rcx, [rip + _s2Bo_info]
+	49 89 4c 24 f0 	mov	qword ptr [r12 - 16], rcx
+	49 89 1c 24 	mov	qword ptr [r12 + _s2Bq_info_dsp], rbx
+	49 8d 5c 24 f0 	lea	rbx, [r12 - 16]
+	4c 8d 35 00 00 00 00 	lea	r14, [rip + _base_GHCziNum_zdfNumInt_closure]
+	48 8d 0d 00 00 00 00 	lea	rcx, [rip + _stg_ap_pp_info]
+	48 89 4d f0 	mov	qword ptr [rbp - 16], rcx
+	48 89 5d f8 	mov	qword ptr [rbp - 8], rbx
+	48 89 45 00 	mov	qword ptr [rbp], rax
+	48 83 c5 f0 	add	rbp, -16
+	e9 00 00 00 00 	jmp	_base_GHCziNum_zp_info
+	00 00 	add	byte ptr [rax + _Foo_fib_info-_Foo_fib_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	0f 1f 00 	nop	dword ptr [rax + _s2Bq_info_dsp]
+_s2Bs_info_dsp:
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	15 00 00 00 00 	adc	eax, offset _s2Bq_info_dsp
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 48 8d 	add	byte ptr [rax - 115], cl
+_s2Bs_info:
+	48 8d 45 f0 	lea	rax, [rbp - 16]
+	4c 39 f8 	cmp	rax, r15
+	72 45 	jb	0x306
+	48 83 ec 08 	sub	rsp, 8
+	4c 89 e8 	mov	rax, r13
+	48 89 de 	mov	rsi, rbx
+	48 89 c7 	mov	rdi, rax
+	31 c0 	xor	eax, eax
+	e8 00 00 00 00 	call	_newCAF
+	48 83 c4 08 	add	rsp, 8
+	48 85 c0 	test	rax, rax
+	74 26 	je	0x304
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _stg_bh_upd_frame_info]
+	48 89 5d f0 	mov	qword ptr [rbp - 16], rbx
+	48 89 45 f8 	mov	qword ptr [rbp - 8], rax
+	4c 8d 35 00 00 00 00 	lea	r14, [rip + _base_GHCziNum_zdfNumInt_closure]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _Bar_bar_closure]
+	48 83 c5 f0 	add	rbp, -16
+	e9 00 00 00 00 	jmp	_stg_ap_p_fast
+	ff 23 	jmp	qword ptr [rbx + _s2Bq_info_dsp]
+	41 ff 65 f0 	jmp	qword ptr [r13 - 16]
+	00 00 	add	byte ptr [rax + _s2Bs_info-_s2Bs_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	66 90 	nop
+_Foo_fibBar_info_dsp:
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	15 00 00 00 00 	adc	eax, offset _s2Bq_info_dsp
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al
+	00 48 8d 	add	byte ptr [rax - 115], cl
+_Foo_fibBar_info:
+	48 8d 45 f0 	lea	rax, [rbp - 16]
+	4c 39 f8 	cmp	rax, r15
+	72 4c 	jb	0x375
+	48 83 ec 08 	sub	rsp, 8
+	4c 89 e8 	mov	rax, r13
+	48 89 de 	mov	rsi, rbx
+	48 89 c7 	mov	rdi, rax
+	31 c0 	xor	eax, eax
+	e8 00 00 00 00 	call	_newCAF
+	48 83 c4 08 	add	rsp, 8
+	48 85 c0 	test	rax, rax
+	74 2d 	je	0x373
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _stg_bh_upd_frame_info]
+	48 89 5d f0 	mov	qword ptr [rbp - 16], rbx
+	48 89 45 f8 	mov	qword ptr [rbp - 8], rax
+	48 8d 35 00 00 00 00 	lea	rsi, [rip + _s2Bs_closure]
+	4c 8d 35 01 00 00 00 	lea	r14, [rip + _Foo_fib_closure+1]
+	48 8d 1d 00 00 00 00 	lea	rbx, [rip + _base_GHCziBase_zi_closure]
+	48 83 c5 f0 	add	rbp, -16
+	e9 00 00 00 00 	jmp	_stg_ap_pp_fast
+	ff 23 	jmp	qword ptr [rbx + _s2Bq_info_dsp]
+	41 ff 65 f0 	jmp	qword ptr [r13 - 16]
+	00 00 	add	byte ptr [rax + _Foo_fibBar_info-_Foo_fibBar_info_dsp], al
+	00 00 	add	byte ptr [rax + _s2Bq_info_dsp], al

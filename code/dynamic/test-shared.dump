@@ -1,0 +1,438 @@
+test-shared.dylib:
+(__TEXT,__text) section
+_dsp__Bar_bar_info_dsp:
+	0f 00 00 	sldtw	(%rax)
+	00 02 	addb	%al, (%rdx)
+	00 00 	addb	%al, (%rax)
+	00 02 	addb	%al, (%rdx)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 0e 	addb	%cl, (%rsi)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 49 83 	addb	%cl, -125(%rcx)
+_Bar_bar_info:
+	49 83 c4 10 	addq	$16, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 33 	ja	0xa00
+	48 8b 05 8c 06 00 00 	movq	1676(%rip), %rax ## literal pool symbol address: _integerzmwiredzmin_GHCziIntegerziType_Szh_con_info
+	49 89 44 24 f8 	movq	%rax, -8(%r12)
+	49 c7 04 24 02 00 00 00 	movq	$2, (%r12)
+	49 8d 44 24 f9 	leaq	-7(%r12), %rax
+	49 89 c0 	movq	%rax, %r8
+	48 89 f7 	movq	%rsi, %rdi
+	48 8b 35 4d 06 00 00 	movq	1613(%rip), %rsi ## literal pool symbol address: _base_GHCziReal_zdfIntegralInteger_closure
+	48 8b 1d 3e 06 00 00 	movq	1598(%rip), %rbx ## literal pool symbol address: _base_GHCziReal_zc_closure
+	ff 25 88 06 00 00 	jmpq	*1672(%rip) ## literal pool symbol address: _stg_ap_pppp_fast
+	49 c7 85 88 03 00 00 10 00 00 00 	movq	$16, 904(%r13)
+	48 8d 1d 9e 06 00 00 	leaq	_Bar_bar_closure(%rip), %rbx
+	41 ff 65 f8 	jmpq	*-8(%r13)
+	18 00 	sbbb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	90 	nop
+	90 	nop
+	90 	nop
+	90 	nop
+	90 	nop
+	90 	nop
+_dsp__Ls2CZ_info_dsp:
+	01 00 	addl	%eax, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	20 07 	andb	%al, (%rdi)
+	00 00 	addb	%al, (%rax)
+_Ls2CZ_info:
+	48 8d 45 d8 	leaq	-40(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 44 	jb	0xa7d
+	48 8b 05 60 06 00 00 	movq	1632(%rip), %rax ## literal pool symbol address: _stg_upd_frame_info
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	4c 8b 35 cd 05 00 00 	movq	1485(%rip), %r14 ## literal pool symbol address: _base_GHCziNum_zdfNumInt_closure
+	48 8b 1d 26 06 00 00 	movq	1574(%rip), %rbx ## literal pool symbol address: _stg_ap_pp_info
+	48 89 5d d8 	movq	%rbx, -40(%rbp)
+	48 89 45 e0 	movq	%rax, -32(%rbp)
+	48 8b 05 ff 05 00 00 	movq	1535(%rip), %rax ## literal pool symbol address: _stg_INTLIKE_closure
+	48 05 21 01 00 00 	addq	$289, %rax
+	48 89 45 e8 	movq	%rax, -24(%rbp)
+	48 83 c5 d8 	addq	$-40, %rbp
+	ff 25 ab 05 00 00 	jmpq	*1451(%rip) ## literal pool symbol address: _base_GHCziNum_zm_info
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	0f 1f 00 	nopl	(%rax)
+_dsp__Ls2D0_info_dsp:
+	01 00 	addl	%eax, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	d0 06 	rolb	(%rsi)
+	00 00 	addb	%al, (%rax)
+_Ls2D0_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4c 	jb	0xaed
+	49 83 c4 18 	addq	$24, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 34 	ja	0xae2
+	48 8b 05 eb 05 00 00 	movq	1515(%rip), %rax ## literal pool symbol address: _stg_upd_frame_info
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	48 8d 1d 68 ff ff ff 	leaq	_Ls2CZ_info(%rip), %rbx
+	49 89 5c 24 f0 	movq	%rbx, -16(%r12)
+	49 89 04 24 	movq	%rax, (%r12)
+	49 8d 44 24 f0 	leaq	-16(%r12), %rax
+	49 89 c6 	movq	%rax, %r14
+	48 83 c5 f0 	addq	$-16, %rbp
+	e9 06 01 00 00 	jmp	_Foo_fib_info
+	49 c7 85 88 03 00 00 18 00 00 00 	movq	$24, 904(%r13)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	0f 1f 00 	nopl	(%rax)
+_dsp__Ls2CW_info_dsp:
+	01 00 	addl	%eax, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+		.byte 0x48 #bad opcode
+		.byte 0x06 #bad opcode
+	00 00 	addb	%al, (%rax)
+_Ls2CW_info:
+	48 8d 45 d8 	leaq	-40(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 44 	jb	0xb55
+	48 8b 05 88 05 00 00 	movq	1416(%rip), %rax ## literal pool symbol address: _stg_upd_frame_info
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	4c 8b 35 f5 04 00 00 	movq	1269(%rip), %r14 ## literal pool symbol address: _base_GHCziNum_zdfNumInt_closure
+	48 8b 1d 4e 05 00 00 	movq	1358(%rip), %rbx ## literal pool symbol address: _stg_ap_pp_info
+	48 89 5d d8 	movq	%rbx, -40(%rbp)
+	48 89 45 e0 	movq	%rax, -32(%rbp)
+	48 8b 05 27 05 00 00 	movq	1319(%rip), %rax ## literal pool symbol address: _stg_INTLIKE_closure
+	48 05 11 01 00 00 	addq	$273, %rax
+	48 89 45 e8 	movq	%rax, -24(%rbp)
+	48 83 c5 d8 	addq	$-40, %rbp
+	ff 25 d3 04 00 00 	jmpq	*1235(%rip) ## literal pool symbol address: _base_GHCziNum_zm_info
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	0f 1f 00 	nopl	(%rax)
+_dsp__Ls2CX_info_dsp:
+	01 00 	addl	%eax, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	f8 	clc
+	05 00 00 48 8d 	addl	$2370306048, %eax
+_Ls2CX_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4c 	jb	0xbc5
+	49 83 c4 18 	addq	$24, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 34 	ja	0xbba
+	48 8b 05 13 05 00 00 	movq	1299(%rip), %rax ## literal pool symbol address: _stg_upd_frame_info
+	48 89 45 f0 	movq	%rax, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 8b 43 10 	movq	16(%rbx), %rax
+	48 8d 1d 68 ff ff ff 	leaq	_Ls2CW_info(%rip), %rbx
+	49 89 5c 24 f0 	movq	%rbx, -16(%r12)
+	49 89 04 24 	movq	%rax, (%r12)
+	49 8d 44 24 f0 	leaq	-16(%r12), %rax
+	49 89 c6 	movq	%rax, %r14
+	48 83 c5 f0 	addq	$-16, %rbp
+	e9 2e 00 00 00 	jmp	_Foo_fib_info
+	49 c7 85 88 03 00 00 18 00 00 00 	movq	$24, 904(%r13)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	0f 1f 00 	nopl	(%rax)
+_dsp__Foo_fib_info_dsp:
+	05 00 00 00 01 	addl	$16777216, %eax
+	00 00 	addb	%al, (%rax)
+	00 01 	addb	%al, (%rcx)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 0e 	addb	%cl, (%rsi)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 48 8d 	addb	%cl, -115(%rax)
+_Foo_fib_info:
+	48 8d 45 e8 	leaq	-24(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	0f 82 62 00 00 00 	jb	0xc57
+	48 8d 05 2c 00 00 00 	leaq	_Lc2Db_info(%rip), %rax
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	4c 89 f3 	movq	%r14, %rbx
+	48 83 c5 f8 	addq	$-8, %rbp
+	f6 c3 07 	testb	$7, %bl
+	0f 85 18 00 00 00 	jne	_Lc2Db_info
+	ff 23 	jmpq	*(%rbx)
+	66 0f 1f 44 00 00 	nopw	(%rax,%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+		.byte 0x1e #bad opcode
+	00 00 	addb	%al, (%rax)
+	00 40 05 	addb	%al, 5(%rax)
+	00 00 	addb	%al, (%rax)
+_Lc2Db_info:
+	49 83 c4 30 	addq	$48, %r12
+	4d 3b a5 58 03 00 00 	cmpq	856(%r13), %r12
+	77 2d 	ja	0xc62
+	48 8b 43 07 	movq	7(%rbx), %rax
+	48 85 c0 	testq	%rax, %rax
+	75 35 	jne	0xc73
+	49 83 c4 d0 	addq	$-48, %r12
+	48 8b 05 1f 04 00 00 	movq	1055(%rip), %rax ## literal pool symbol address: _stg_INTLIKE_closure
+	48 8d 98 11 01 00 00 	leaq	273(%rax), %rbx
+	48 83 c5 08 	addq	$8, %rbp
+	ff 65 00 	jmpq	*(%rbp)
+	48 8d 1d 0a 05 00 00 	leaq	_Foo_fib_closure(%rip), %rbx
+	41 ff 65 f8 	jmpq	*-8(%r13)
+	49 c7 85 88 03 00 00 30 00 00 00 	movq	$48, 904(%r13)
+	ff 25 25 04 00 00 	jmpq	*1061(%rip) ## literal pool symbol address: _stg_gc_unpt_r1
+	48 83 f8 01 	cmpq	$1, %rax
+	74 4f 	je	0xcc8
+	48 8d 05 18 fe ff ff 	leaq	_Ls2D0_info(%rip), %rax
+	49 89 44 24 d8 	movq	%rax, -40(%r12)
+	49 89 5c 24 e8 	movq	%rbx, -24(%r12)
+	49 8d 44 24 d8 	leaq	-40(%r12), %rax
+	48 8d 0d da fe ff ff 	leaq	_Ls2CX_info(%rip), %rcx
+	49 89 4c 24 f0 	movq	%rcx, -16(%r12)
+	49 89 1c 24 	movq	%rbx, (%r12)
+	49 8d 5c 24 f0 	leaq	-16(%r12), %rbx
+	4c 8b 35 75 03 00 00 	movq	885(%rip), %r14 ## literal pool symbol address: _base_GHCziNum_zdfNumInt_closure
+	48 8b 0d ce 03 00 00 	movq	974(%rip), %rcx ## literal pool symbol address: _stg_ap_pp_info
+	48 89 4d f0 	movq	%rcx, -16(%rbp)
+	48 89 5d f8 	movq	%rbx, -8(%rbp)
+	48 89 45 00 	movq	%rax, (%rbp)
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 68 03 00 00 	jmpq	*872(%rip) ## literal pool symbol address: _base_GHCziNum_zp_info
+	49 83 c4 d0 	addq	$-48, %r12
+	48 8b 05 95 03 00 00 	movq	917(%rip), %rax ## literal pool symbol address: _stg_INTLIKE_closure
+	48 8d 98 11 01 00 00 	leaq	273(%rax), %rbx
+	48 83 c5 08 	addq	$8, %rbp
+	ff 65 00 	jmpq	*(%rbp)
+	18 00 	sbbb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	0f 1f 00 	nopl	(%rax)
+_dsp__Ls2D1_info_dsp:
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	15 00 00 00 88 	adcl	$2281701376, %eax
+	04 00 	addb	$0, %al
+	00 48 8d 	addb	%cl, -115(%rax)
+_Ls2D1_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 46 	jb	0xd47
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 5b 02 00 00 	callq	0xf70 ## symbol stub for: _newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 27 	je	0xd45
+	48 8b 1d 6b 03 00 00 	movq	875(%rip), %rbx ## literal pool symbol address: _stg_bh_upd_frame_info
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	4c 8b 35 ec 02 00 00 	movq	748(%rip), %r14 ## literal pool symbol address: _base_GHCziNum_zdfNumInt_closure
+	48 8d 1d 75 03 00 00 	leaq	_Bar_bar_closure(%rip), %rbx
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 2b 03 00 00 	jmpq	*811(%rip) ## literal pool symbol address: _stg_ap_p_fast
+	ff 23 	jmpq	*(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	90 	nop
+_dsp__Foo_fibBar_info_dsp:
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	15 00 00 00 60 	adcl	$1610612736, %eax
+	04 00 	addb	$0, %al
+	00 48 8d 	addb	%cl, -115(%rax)
+_Foo_fibBar_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4d 	jb	0xdb6
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 f3 01 00 00 	callq	0xf70 ## symbol stub for: _newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 2e 	je	0xdb4
+	48 8b 1d 03 03 00 00 	movq	771(%rip), %rbx ## literal pool symbol address: _stg_bh_upd_frame_info
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	48 8d 35 04 04 00 00 	leaq	_Ls2D1_closure(%rip), %rsi
+	4c 8d 35 c6 03 00 00 	leaq	966(%rip), %r14
+	48 8b 1d 6e 02 00 00 	movq	622(%rip), %rbx ## literal pool symbol address: _base_GHCziBase_zi_closure
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 c4 02 00 00 	jmpq	*708(%rip) ## literal pool symbol address: _stg_ap_pp_fast
+	ff 23 	jmpq	*(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	90 	nop
+	90 	nop
+_dsp__Ls3eb_info_dsp:
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	15 00 00 00 78 	adcl	$2013265920, %eax
+	04 00 	addb	$0, %al
+	00 48 8d 	addb	%cl, -115(%rax)
+_Ls3eb_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4d 	jb	0xe26
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 83 01 00 00 	callq	0xf70 ## symbol stub for: _newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 2e 	je	0xe24
+	48 8b 1d 93 02 00 00 	movq	659(%rip), %rbx ## literal pool symbol address: _stg_bh_upd_frame_info
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	48 8b 05 5c 02 00 00 	movq	604(%rip), %rax ## literal pool symbol address: _stg_INTLIKE_closure
+	4c 8d b0 51 01 00 00 	leaq	337(%rax), %r14
+	48 8d 1d ce 03 00 00 	leaq	_Foo_fibBar_closure(%rip), %rbx
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 4c 02 00 00 	jmpq	*588(%rip) ## literal pool symbol address: _stg_ap_p_fast
+	ff 23 	jmpq	*(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	66 90 	nop
+_dsp__Ls3e9_info_dsp:
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	15 00 00 00 40 	adcl	$1073741824, %eax
+	04 00 	addb	$0, %al
+	00 48 8d 	addb	%cl, -115(%rax)
+_Ls3e9_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 46 	jb	0xe8f
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 13 01 00 00 	callq	0xf70 ## symbol stub for: _newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 27 	je	0xe8d
+	48 8b 1d 23 02 00 00 	movq	547(%rip), %rbx ## literal pool symbol address: _stg_bh_upd_frame_info
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	4c 8b 35 cc 01 00 00 	movq	460(%rip), %r14 ## literal pool symbol address: _base_GHCziShow_zdfShowInt_closure
+	48 8b 1d d5 01 00 00 	movq	469(%rip), %rbx ## literal pool symbol address: _base_SystemziIO_print_closure
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 e3 01 00 00 	jmpq	*483(%rip) ## literal pool symbol address: _stg_ap_p_fast
+	ff 23 	jmpq	*(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	90 	nop
+_dsp__Main_main_info_dsp:
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	15 00 00 00 18 	adcl	$402653184, %eax
+	04 00 	addb	$0, %al
+	00 48 8d 	addb	%cl, -115(%rax)
+_Main_main_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 4d 	jb	0xefe
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 ab 00 00 00 	callq	0xf70 ## symbol stub for: _newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 2e 	je	0xefc
+	48 8b 1d bb 01 00 00 	movq	443(%rip), %rbx ## literal pool symbol address: _stg_bh_upd_frame_info
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	48 8d 35 7c 03 00 00 	leaq	_Ls3eb_closure(%rip), %rsi
+	4c 8d 35 b5 03 00 00 	leaq	_Ls3e9_closure(%rip), %r14
+	48 8b 1d 1e 01 00 00 	movq	286(%rip), %rbx ## literal pool symbol address: _base_GHCziBase_zd_closure
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 7c 01 00 00 	jmpq	*380(%rip) ## literal pool symbol address: _stg_ap_pp_fast
+	ff 23 	jmpq	*(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	66 90 	nop
+_dsp__ZCMain_main_info_dsp:
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
+	15 00 00 00 f0 	adcl	$4026531840, %eax
+	03 00 	addl	(%rax), %eax
+	00 48 8d 	addb	%cl, -115(%rax)
+_ZCMain_main_info:
+	48 8d 45 f0 	leaq	-16(%rbp), %rax
+	4c 39 f8 	cmpq	%r15, %rax
+	72 46 	jb	0xf67
+	48 83 ec 08 	subq	$8, %rsp
+	4c 89 e8 	movq	%r13, %rax
+	48 89 de 	movq	%rbx, %rsi
+	48 89 c7 	movq	%rax, %rdi
+	31 c0 	xorl	%eax, %eax
+	e8 3b 00 00 00 	callq	0xf70 ## symbol stub for: _newCAF
+	48 83 c4 08 	addq	$8, %rsp
+	48 85 c0 	testq	%rax, %rax
+	74 27 	je	0xf65
+	48 8b 1d 4b 01 00 00 	movq	331(%rip), %rbx ## literal pool symbol address: _stg_bh_upd_frame_info
+	48 89 5d f0 	movq	%rbx, -16(%rbp)
+	48 89 45 f8 	movq	%rax, -8(%rbp)
+	4c 8d 35 94 03 00 00 	leaq	_Main_main_closure(%rip), %r14
+	48 8b 1d f5 00 00 00 	movq	245(%rip), %rbx ## literal pool symbol address: _base_GHCziTopHandler_runMainIO_closure
+	48 83 c5 f0 	addq	$-16, %rbp
+	ff 25 0b 01 00 00 	jmpq	*267(%rip) ## literal pool symbol address: _stg_ap_p_fast
+	ff 23 	jmpq	*(%rbx)
+	41 ff 65 f0 	jmpq	*-16(%r13)
+	10 00 	adcb	%al, (%rax)
+	00 00 	addb	%al, (%rax)
