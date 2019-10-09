@@ -16,6 +16,14 @@ slidenumbers: true
 
 ---
 
+## Linking
+### +
+## Runtime
+### =
+## **?**
+
+---
+
 #[fit] GHC**i**   :arrow_left: Byte Code :arrow_left: Source Code
 #[fit] _____ :arrow_upper_left:? **Compiled Code** :arrow_lower_left:_____
 ## Do we even need **both**?
@@ -53,18 +61,37 @@ fib n = fib (n - 1) + fib (n - 2)
 
 ---
 
-#[fit] We will **cover**
+#[fit] Plan
 
-<br/>
-
-- What is **linking** in general
-- GHC + `-dynamic` and using **system linker**
-- GHC + `-static` and custom **RTS linker**
-- What are the **challenges**
+---
+## 1
+# Linkers
+### Simple in theory, complex in practice.
 
 ---
 
+## 2
+#[fit] Linking in runtime 
+### There's more than one way to do it[^2]
+
+[^2]: **Two** ways to be precise: dynamic and static.
+   
+---
+
+## 3
+
+# :thumbsup: :hankey: :fire:
+##[fit] ... or in other words: **pros, cons, and challanges**.
+
+---
+# 1
+<br/>
+
 #[fit] `ld` = **l**ink e**d**itor
+
+---
+
+![fit](images/linking-diagram.png)
 
 ---
 
@@ -174,6 +201,7 @@ void array_magic(int* arr, int len); // rdi <- arr; esi <- len
 ```
 
 [.code-highlight: 2,11,20,23]
+[.code-highlight: 5,15]
 ```
 (__TEXT,__text) section
 _array_magic:
@@ -202,36 +230,6 @@ address  pcrel length extern type    scattered symbolnum/value
 
 ---
 
-```c
-void array_magic(int* arr, int len); // rdi <- arr; esi <- len
-```
-
-[.code-highlight: 4-5,16]
-[.code-highlight: 6-8]
-[.code-highlight: 10-12]
-[.code-highlight: 13-15]
-```
-(__TEXT,__text) section
-_array_magic:
----prologue
-         a:	85 f6 	testl	%esi, %esi ; length = 0?
--        c:	7e 27 	jle	0x35
-|        e:	49 89 ff 	movq	%rdi, %r15  ; r15 <- arr
-|       11:	41 89 f6 	movl	%esi, %r14d ; r14 <- length
-|       14:	31 db 	xorl	%ebx, %ebx      ; i <- 0
-|  ...
-|   ->  20:	41 8b 3c 9f 	movl	(%r15,%rbx,4), %edi ; edi <- arr[i]
-|  /    24:	e8 00 00 00 00 	callq	_magic          ; eax <- magic(edi)
-|  |    29:	41 89 04 9f 	movl	%eax, (%r15,%rbx,4) ; arr[i] <- eax
-|  |    2d:	48 ff c3 	incq	%rbx        ; i++
-|  |    30:	49 39 de 	cmpq	%rbx, %r14  ; i < length?
-\  -    33:	75 eb 	jne	0x20
-  ->    35:	48 83 c4 08 	addq	$8, %rsp
----epilogue
-```
-
----
-
 [.code-highlight: 1]
 ```
 c:	7e 27 	jle	0x35
@@ -241,8 +239,8 @@ e:	49 89 ff 	movq	%rdi, %r15
 ...
 ```
 
-- `7e` is opcode for `JLE rel8`
-- `JLE` is short (1 byte) jump to `rel8` offset from **next** instruction address
+- `7e` is opcode for `JLE rel8` instruction
+- `JLE` takes a **relative offset** from the program counter
 - `e + 27 = 35`
 
 ^ Disassembly shows absolute addresses, but jumps in fact are relative.
@@ -301,6 +299,16 @@ Contents of (__DATA,__data) section
 
 ---
 
+## 2
+
+#[fit] Runtime Linking
+## in
+# GHC
+
+![](images/haskell-logo.png)
+
+---
+
 #[fit] -**dynamic**[^~]
 
 [^~]: *dynamic way = haskell libraries and RTS are linked dynamically*
@@ -308,40 +316,33 @@ Contents of (__DATA,__data) section
 ---
 
 ```haskell
-module Dub
-  (dub
-  ) where
+module Foo (foo) where
 
-dub :: Num a => a -> a
-dub x = x * x
+foo x = x * 3
 ```
 
-[.code-highlight: 4]
 ```shell
-$ ghc -c Dub.hs # produces Dub.o
+$ ghc -c Foo.hs # produces Foo.o
 $ ghci
-λ> :l Dub
-... # Will Dub.o get used?
+λ> :l Foo
+... # Will Foo.o get used?
 ```
 
 ---
 
 [.code-highlight: none]
 ```haskell
-module Dub
-  (dub
-  ) where
+module Foo (foo) where
 
-dub :: Num a => a -> a
-dub x = x * x
+foo x = x * 3
 ```
 
 [.code-highlight: 4]
 ```
-$ ghc -c Dub.hs
+$ ghc -c Foo.hs
 $ ghci
-λ> :l Dub
-[1 of 1] Compiling Dub              ( hs/Dub.hs, interpreted )
+λ> :l Foo
+[1 of 1] Compiling Foo              ( hs/Foo.hs, interpreted )
 Ok, one module loaded.
 ```
 
@@ -362,11 +363,10 @@ $ objdump -dylibs-used {path-to-ghc-bin}
 
 ---
 
-[.code-highlight: 1,4]
 ```shell
-$ ghc -c -dynamic Dub.hs
+$ ghc -c -dynamic Foo.hs
 $ ghci
-λ> :l Dub
+λ> :l Foo
 Ok, one module loaded.
 Collecting type info for 1 module(s) ...
 ```
@@ -384,11 +384,11 @@ Collecting type info for 1 module(s) ...
 ---
 
 
-#[fit] `diff -u static/Dub.s dyn/Dub.s`
+#[fit] `diff -u static/Foo.s dyn/Foo.s`
 
 ```
--static/Dub.s:
-+dyn/Dub.s:
+-static/Foo.s:
++dyn/Foo.s:
 ...
 -	leaq	_stg_ap_pp_info(%rip), %rax
 +	movq	_stg_ap_pp_info(%rip), %rax
@@ -400,7 +400,7 @@ Collecting type info for 1 module(s) ...
 
 ---
 
-#[fit] `diff -u <(objdump -r static/Dub.o) <(objdump -r dyn/Dub.o)`
+#[fit] `diff -u <(objdump -r static/Foo.o) <(objdump -r dyn/Foo.o)`
 
 ```
 - X86_64_RELOC_BRANCH _base_GHCziNum_zt_info
@@ -409,10 +409,6 @@ Collecting type info for 1 module(s) ...
 + X86_64_RELOC_GOT _base_GHCziNum_zt_info@GOTPCREL
 + X86_64_RELOC_GOT_LOAD _stg_ap_pp_info@GOTPCREL
 ```
-
----
-
-![fit](images/stat-vs-dyn-reloc.png)
 
 ---
 
@@ -429,21 +425,11 @@ Collecting type info for 1 module(s) ...
 ^ Linker state, linker initialisation, byte code linking, object
 ^ code dynamic linking, loading and unloading of modules and packages.
 
-[.code-highlight: 1,10,11]
 ```
 compiler/ghci
-├── ByteCodeAsm.hs
-├── ByteCodeGen.hs
-├── ByteCodeInstr.hs
-├── ByteCodeItbls.hs
-├── ByteCodeLink.hs
-├── ByteCodeTypes.hs
-├── Debugger.hs
-├── GHCi.hs
 ├── Linker.hs
 ├── LinkerTypes.hs
-├── RtClosureInspect.hs
-└── keepCAFsForGHCi.c
+...
 ```
 
 
@@ -503,19 +489,19 @@ dynLoadObjs hsc_env pls@PersistentLinkerState{..} objs = do
 ```
 
 ---
+
+#[fit] Very nice!
+#[fit] Where's the **catch**?
+
+---
 # Example
 
 ```haskell
--- file: Dub.hs
-module Dub (dub) where
-
-dub x = x * x
-
 -- file: Foo.hs              -- file: Bar.hs
 module Foo (foo) where       module Bar (bar) where
-import Dub                   import Foo
+                             import Foo
 
-foo a = dub a + 1            bar a = even $ foo a
+foo a = a * 3                bar a = even $ foo a + 1
 ```
 ---
 
@@ -525,110 +511,85 @@ foo a = dub a + 1            bar a = even $ foo a
 ```haskell
 initLinker: start
 ...
-Prelude> :l Dub Foo Bar
-Ok, three modules loaded.
-Prelude Dub> :m Dub Foo Bar
-Prelude Dub Foo Bar>
+Prelude> :l Foo Bar
+Ok, two modules loaded.
+Prelude Foo> :m Foo Bar
+Prelude Foo Bar>
 ```
 
 ---
 
 ```haskell
-Prelude Dub Foo Bar> dub 1
-addDLL: dll_name = '[tmp-folder]/libghc_1.dylib'
+Prelude Foo Bar> foo 2
+addDLL: dll_name = '[tmp-forlder]/libghc_1.dylib'
 internal_dlopen: dll_name = '[tmp-folder]/libghc_1.dylib'
 ...
-1
 ```
 
 ---
 
 ```haskell
-Prelude Dub Foo Bar> foo 2
-addDLL: dll_name = '[tmp-forlder]/libghc_3.dylib'
+Prelude Foo Bar> bar 3
+addDLL: dll_name = '[tmp-folder]/libghc_3.dylib'
 internal_dlopen: dll_name = '[tmp-folder]/libghc_3.dylib'
 ...
-5
+```
+
+---
+
+```
+$ PAT='.*F.*\(Foo_foo\|Bar_bar\).*'
+
+$ objdump -t libghc_1.dylib | grep $PAT
+l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
+g     F __TEXT,__text	_Foo_foo_info
+
+$ objdump -t libghc_3.dylib | grep $PAT
+l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
+g     F __TEXT,__text	_Bar_bar_info
 ```
 
 ---
 
 ```haskell
-Prelude Dub Foo Bar> bar 3
+Prelude Foo Bar> :l Bar
+Ok, two modules loaded.
+Prelude Bar> bar 4
 addDLL: dll_name = '[tmp-folder]/libghc_5.dylib'
 internal_dlopen: dll_name = '[tmp-folder]/libghc_5.dylib'
 ...
-True
 ```
 
 ---
 
-[.code-highlight: 1, 3, 5, 7, 9, 11, 13]
 ```
-$ PAT='.*F.*\(Dub_dub\|Foo_foo\|Bar_bar\).*'
-
-$ objdump -t libghc_1.dylib | grep $PAT
-0000000000000f60 l     F __TEXT,__text	_dsp__Dub_dub_info_dsp
-0000000000000f78 g     F __TEXT,__text	_Dub_dub_info
-
-$ objdump -t libghc_3.dylib | grep $PAT
-0000000000000f18 l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
-0000000000000f30 g     F __TEXT,__text	_Foo_foo_info
-
 $ objdump -t libghc_5.dylib | grep $PAT
-0000000000000e80 l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
-0000000000000e98 g     F __TEXT,__text	_Bar_bar_info
-```
-
----
-
-```haskell
-Prelude Dub Foo Bar> :l Bar
-Ok, three modules loaded.
-Prelude Bar> bar 4
-addDLL: dll_name = '[tmp-folder]/libghc_7.dylib'
-internal_dlopen: dll_name = '[tmp-folder]/libghc_7.dylib'
-...
-False
-```
-
----
-
-[.code-highlight: 1, 5-7]
-```
-$ objdump -t libghc_7.dylib | grep $PAT
-0000000000000ae8 l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
-0000000000000b80 l     F __TEXT,__text	_dsp__Dub_dub_info_dsp
-0000000000000e68 l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
-0000000000000e80 g     F __TEXT,__text	_Bar_bar_info
-0000000000000b98 g     F __TEXT,__text	_Dub_dub_info
-0000000000000b00 g     F __TEXT,__text	_Foo_foo_info
+l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
+l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
+g     F __TEXT,__text	_Bar_bar_info
+g     F __TEXT,__text	_Foo_foo_info
 ```
 
 ---
 
 ```haskell
 Prelude Bar> :l Bar
-Ok, three modules loaded.
+Ok, two modules loaded.
 Prelude Bar> bar 5
-addDLL: dll_name = '[tmp-folder]/libghc_9.dylib'
-internal_dlopen: dll_name = '[tmp-folder]/libghc_9.dylib'
+addDLL: dll_name = '[tmp-folder]/libghc_7.dylib'
+internal_dlopen: dll_name = '[tmp-folder]/libghc_7.dylib'
 ...
-True
 
 ```
 
 ---
 
-[.code-highlight: 1, 5-7]
 ```
-$ objdump -t libghc_9.dylib | grep $PAT
-0000000000000ae8 l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
-0000000000000b80 l     F __TEXT,__text	_dsp__Dub_dub_info_dsp
-0000000000000e68 l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
-0000000000000e80 g     F __TEXT,__text	_Bar_bar_info
-0000000000000b98 g     F __TEXT,__text	_Dub_dub_info
-0000000000000b00 g     F __TEXT,__text	_Foo_foo_info
+$ objdump -t libghc_7.dylib | grep $PAT
+l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
+l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
+g     F __TEXT,__text	_Bar_bar_info
+g     F __TEXT,__text	_Foo_foo_info
 ```
 
 ---
@@ -636,17 +597,21 @@ $ objdump -t libghc_9.dylib | grep $PAT
 [.code-highlight: 1,3,4,5,6,7]
 ```
 $ lsof -c ghc | grep libghc_
-CMD     PID   FD      TYPE SIZE/OFF  NAME
-ghc     91710 txt      REG     8928  [tmp-folder]/libghc_1.dylib
-ghc     91710 txt      REG     9608  [tmp-folder]/libghc_3.dylib
-ghc     91710 txt      REG    10420  [tmp-folder]/libghc_5.dylib
-ghc     91710 txt      REG    11344  [tmp-folder]/libghc_7.dylib
-ghc     91710 txt      REG    11344  [tmp-folder]/libghc_9.dylib
+CMD     PID   FD      TYPE    NAME
+ghc     91710 txt      REG    [tmp-folder]/libghc_1.dylib
+ghc     91710 txt      REG    [tmp-folder]/libghc_3.dylib
+ghc     91710 txt      REG    [tmp-folder]/libghc_5.dylib
+ghc     91710 txt      REG    [tmp-folder]/libghc_7.dylib
 ```
 
 ---
 
-# `¯\_(ツ)_/¯`
+![left,fill](images/my-precious-half.png)
+
+#[fit] :arrow_right: **Takes time** to 
+#[fit] find what it needs.
+#[fit] :arrow_right: **Never gives back**
+#[fit] what it once received.
 
 ---
 
@@ -680,36 +645,21 @@ dynLinkObjs hsc_env pls objs = do
 
 ^ Mostly bindings to RTS linker.
 
-[.code-highlight: 1,8]
 ```
 libraries/ghci/GHCi
-├── BinaryArray.hs
-├── BreakArray.hs
-├── CreateBCO.hs
-├── FFI.hsc
-├── InfoTable.hsc
-├── Message.hs
 ├── ObjLink.hs
-├── RemoteTypes.hs
-├── ResolvedBCO.hs
-├── Run.hs
-├── Signals.hs
-├── StaticPtrTable.hs
-├── TH
-│   └── Binary.hs
-└── TH.hs
+...
 ```
 
-|              | files | blank | comment | code |
-|--------------|-------|-------|---------|------|
-| `ObjLink.hs` | 1     | 27    | 45      | 123  |
-| Total        | 12    | 292   | 414     | 1437 |
+|           | files | blank | comment | code |
+|-----------|-------|-------|---------|------|
+| `ObjLink` | 1     | 27    | 45      | 123  |
+| Total     | 12    | 292   | 414     | 1437 |
 
 
 ---
 
 [.code-highlight:1,2,3,4]
-[.code-highlight: all]
 ```
 rts
 ├── Linker.c
@@ -737,7 +687,7 @@ rts
 
 ---
 
-#[fit] **RTS linker** stats
+#[fit] A **fair** amount of **C** code!
 
 <br/>
 
@@ -793,7 +743,13 @@ lookupSymbol
 
 ---
 
-**Example 1:**
+# Example 1
+<br/>
+##[fit] Debugging a rare[^r] **segfault**
+
+[^r]: About 0.02% chance of a segfault.
+
+---
 
 ```c
 int
@@ -810,8 +766,6 @@ ocGetNames_MachO(ObjectCode* oc) // oc was mmapped earlier
 ```
 
 ---
-
-**Example 1:**
 
 [.code-highlight: 8,13,14]
 ```c
@@ -843,7 +797,12 @@ struct section_64 {
 
 ---
 
-**Example 2:**
+# Example 2
+<br/>
+##[fit] **Not** all numbers 
+##[fit] are created **equal**
+
+---
 
 [.code-highlight: all]
 [.code-highlight: 14,15]
@@ -893,9 +852,23 @@ ocBuildSegments_MachO(ObjectCode *oc)
 
 ---
 
+![](images/static-vs-dynamic.png)
+
+---
+
 ![original](images/recap.jpg)
 
 #               Recap
+
+---
+
+#[fit] **Hack** on GHC
+#[fit] **Help** fix those bugs[^b]
+#[fit] **Fun** and rewarding it is!
+
+
+[^b]: Looking at you [GHC-13624](https://gitlab.haskell.org/ghc/ghc/issues/13624).
+
 
 ---
 
