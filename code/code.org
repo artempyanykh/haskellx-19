@@ -1,0 +1,719 @@
+* Code and such
+** Motivation
+#+BEGIN_SRC haskell :tangle haskell/FibSlow.hs
+  module Fib
+    ( fib
+    ) where
+
+  fib :: Int -> Int
+  fib 0 = 0
+  fib 1 = 1
+  fib n = fib (n - 1) + fib (n - 2)
+#+END_SRC
+
+#+BEGIN_SRC shell
+  ghc -c -dynamic haskell/FibSlow.hs -o haskell/FibSlow.o
+#+END_SRC
+
+#+RESULTS:
+** Link editor
+#+BEGIN_SRC c :tangle c/magic.c
+  int MAGIC = 42;
+
+  int magic(int x)
+  {
+          return x + MAGIC;
+  }
+#+END_SRC
+
+#+BEGIN_SRC bash :results output
+  cc -c -O2 c/magic.c -fno-asynchronous-unwind-tables -o c/magic.o
+  objdump -macho -D c/magic.o
+  objdump -macho -t c/magic.o
+  objdump -macho -r c/magic.o
+  objdump -macho -section=__DATA,__data -s c/magic.o
+  otool -l c/magic.o
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+c/magic.o:
+(__TEXT,__text) section
+_magic:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	03 3d 00 00 00 00 	addl	_MAGIC(%rip), %edi
+       a:	89 f8 	movl	%edi, %eax
+       c:	5d 	popq	%rbp
+       d:	c3 	retq
+c/magic.o:
+SYMBOL TABLE:
+0000000000000010 g       __DATA,__data	_MAGIC
+0000000000000000 g     F __TEXT,__text	_magic
+c/magic.o:
+Relocation information (__TEXT,__text) 1 entries
+address  pcrel length extern type    scattered symbolnum/value
+00000006 True  long   True   SIGNED  False     _MAGIC
+c/magic.o:
+Contents of (__DATA,__data) section
+0000000000000010	2a 00 00 00 
+c/magic.o:
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+ 0xfeedfacf 16777223          3  0x00           1     4        360 0x00002000
+Load command 0
+      cmd LC_SEGMENT_64
+  cmdsize 232
+  segname 
+   vmaddr 0x0000000000000000
+   vmsize 0x0000000000000014
+  fileoff 392
+ filesize 20
+  maxprot 0x00000007
+ initprot 0x00000007
+   nsects 2
+    flags 0x0
+Section
+  sectname __text
+   segname __TEXT
+      addr 0x0000000000000000
+      size 0x000000000000000e
+    offset 392
+     align 2^4 (16)
+    reloff 412
+    nreloc 1
+     flags 0x80000400
+ reserved1 0
+ reserved2 0
+Section
+  sectname __data
+   segname __DATA
+      addr 0x0000000000000010
+      size 0x0000000000000004
+    offset 408
+     align 2^2 (4)
+    reloff 0
+    nreloc 0
+     flags 0x00000000
+ reserved1 0
+ reserved2 0
+Load command 1
+       cmd LC_BUILD_VERSION
+   cmdsize 24
+  platform macos
+       sdk 10.14
+     minos 10.14
+    ntools 0
+Load command 2
+     cmd LC_SYMTAB
+ cmdsize 24
+  symoff 420
+   nsyms 2
+  stroff 452
+ strsize 16
+Load command 3
+            cmd LC_DYSYMTAB
+        cmdsize 80
+      ilocalsym 0
+      nlocalsym 0
+     iextdefsym 0
+     nextdefsym 2
+      iundefsym 2
+      nundefsym 0
+         tocoff 0
+           ntoc 0
+      modtaboff 0
+        nmodtab 0
+   extrefsymoff 0
+    nextrefsyms 0
+ indirectsymoff 0
+  nindirectsyms 0
+      extreloff 0
+        nextrel 0
+      locreloff 0
+        nlocrel 0
+#+end_example
+
+#+BEGIN_SRC c :tangle c/array_magic.c
+  extern int magic(int);
+
+  void array_magic(int* arr, int len)
+  {
+          for (int i = 0; i < len; i++) {
+                  arr[i] = magic(arr[i]);
+          }
+  }
+#+END_SRC
+
+#+BEGIN_SRC shell :results output
+  cc -S -O2 -fno-asynchronous-unwind-tables c/array_magic.c -o c/array_magic.s
+  cat c/array_magic.s
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+	.section	__TEXT,__text,regular,pure_instructions
+	.build_version macos, 10, 14	sdk_version 10, 14
+	.globl	_array_magic            ## -- Begin function array_magic
+	.p2align	4, 0x90
+_array_magic:                           ## @array_magic
+## %bb.0:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	pushq	%r15
+	pushq	%r14
+	pushq	%rbx
+	pushq	%rax
+	testl	%esi, %esi
+	jle	LBB0_3
+## %bb.1:
+	movq	%rdi, %r15
+	movl	%esi, %r14d
+	xorl	%ebx, %ebx
+	.p2align	4, 0x90
+LBB0_2:                                 ## =>This Inner Loop Header: Depth=1
+	movl	(%r15,%rbx,4), %edi
+	callq	_magic
+	movl	%eax, (%r15,%rbx,4)
+	incq	%rbx
+	cmpq	%rbx, %r14
+	jne	LBB0_2
+LBB0_3:
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq
+                                        ## -- End function
+
+.subsections_via_symbols
+#+end_example
+
+#+BEGIN_SRC bash :results output
+  cc -c -O2 -fno-asynchronous-unwind-tables c/array_magic.c -o c/array_magic.o
+  objdump -macho -D c/array_magic.o
+  objdump -macho -t c/array_magic.o
+  objdump -macho -r c/array_magic.o
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+c/array_magic.o:
+(__TEXT,__text) section
+_array_magic:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	41 57 	pushq	%r15
+       6:	41 56 	pushq	%r14
+       8:	53 	pushq	%rbx
+       9:	50 	pushq	%rax
+       a:	85 f6 	testl	%esi, %esi
+       c:	7e 27 	jle	0x35
+       e:	49 89 ff 	movq	%rdi, %r15
+      11:	41 89 f6 	movl	%esi, %r14d
+      14:	31 db 	xorl	%ebx, %ebx
+      16:	66 2e 0f 1f 84 00 00 00 00 00 	nopw	%cs:_array_magic(%rax,%rax)
+      20:	41 8b 3c 9f 	movl	_array_magic(%r15,%rbx,4), %edi
+      24:	e8 00 00 00 00 	callq	_magic
+      29:	41 89 04 9f 	movl	%eax, _array_magic(%r15,%rbx,4)
+      2d:	48 ff c3 	incq	%rbx
+      30:	49 39 de 	cmpq	%rbx, %r14
+      33:	75 eb 	jne	0x20
+      35:	48 83 c4 08 	addq	$8, %rsp
+      39:	5b 	popq	%rbx
+      3a:	41 5e 	popq	%r14
+      3c:	41 5f 	popq	%r15
+      3e:	5d 	popq	%rbp
+      3f:	c3 	retq
+c/array_magic.o:
+SYMBOL TABLE:
+0000000000000000 g     F __TEXT,__text	_array_magic
+0000000000000000         *UND*	_magic
+c/array_magic.o:
+Relocation information (__TEXT,__text) 1 entries
+address  pcrel length extern type    scattered symbolnum/value
+00000025 True  long   True   BRANCH  False     _magic
+#+end_example
+
+** -dynamic
+#+BEGIN_SRC haskell :tangle hs/Dub.hs
+  module Dub (dub) where
+
+  dub x = x * x
+#+END_SRC
+
+#+BEGIN_SRC shell :results output
+  ghc -c hs/Dub.hs -outputdir hs/static
+  ghc -c -dynamic hs/Dub.hs -outputdir hs/dyn
+#+END_SRC
+
+#+RESULTS:
+: compilation IS NOT required
+: compilation IS NOT required
+
+#+BEGIN_SRC shell :results output
+  objdump -macho -dylibs-used /usr/local/Cellar/ghc/8.6.5/lib/ghc-8.6.5/bin/ghc
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+/usr/local/Cellar/ghc/8.6.5/lib/ghc-8.6.5/bin/ghc:
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.250.1)
+	@rpath/libHShaskeline-0.7.4.3-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSghc-8.6.5-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSprocess-1.6.5.0-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSghci-8.6.5-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHStransformers-0.5.6.2-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSghc-boot-8.6.5-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSghc-boot-th-8.6.5-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSdirectory-1.3.3.0-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSunix-2.7.2.2-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHStime-1.8.0.2-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSfilepath-1.4.2.1-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHScontainers-0.6.0.1-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSbytestring-0.10.8.2-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSbase-4.12.0.0-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSinteger-gmp-1.0.2.0-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSghc-prim-0.5.3-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libHSrts_thr-ghc8.6.5.dylib (compatibility version 0.0.0, current version 0.0.0)
+#+end_example
+
+#+BEGIN_SRC shell :results output
+  objdump -macho -D -no-leading-addr -no-show-raw-insn hs/dyn/Dub.o > hs/dyn/Dub.s
+  objdump -macho -D -no-leading-addr -no-show-raw-insn hs/static/Dub.o > hs/static/Dub.s
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC shell :results output
+  diff -u hs/static/Dub.s hs/dyn/Dub.s | cat
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+--- hs/static/Dub.s	2019-09-27 11:24:05.000000000 +0100
++++ hs/dyn/Dub.s	2019-09-27 11:24:05.000000000 +0100
+@@ -1,4 +1,4 @@
+-hs/static/Dub.o:
++hs/dyn/Dub.o:
+ (__TEXT,__text) section
+ _Dub_dub_info_dsp:
+ 	sldtw	_Dub_dub_info_dsp(%rax)
+@@ -16,13 +16,13 @@
+ _Dub_dub_info:
+ 	leaq	-24(%rbp), %rax
+ 	cmpq	%r15, %rax
+-	jb	0x3d
+-	leaq	_stg_ap_pp_info(%rip), %rax
++	jb	0x3e
++	movq	_stg_ap_pp_info(%rip), %rax
+ 	movq	%rax, -24(%rbp)
+ 	movq	%rsi, -16(%rbp)
+ 	movq	%rsi, -8(%rbp)
+ 	addq	$-24, %rbp
+-	jmp	_base_GHCziNum_zt_info
++	jmpq	*_base_GHCziNum_zt_info(%rip)
+ 	leaq	_Dub_dub_closure(%rip), %rbx
+ 	jmpq	*-8(%r13)
+ 	addb	%al, _Dub_dub_info-_Dub_dub_info_dsp(%rax)
+#+end_example
+
+#+BEGIN_SRC shell :results output
+  objdump -r hs/static/Dub.o | tee hs/static/Dub.reloc > /dev/null
+  objdump -r hs/dyn/Dub.o | tee hs/dyn/Dub.reloc > /dev/null
+  diff -u hs/static/Dub.reloc hs/dyn/Dub.reloc | cat
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+--- hs/static/Dub.reloc	2019-09-27 11:34:16.000000000 +0100
++++ hs/dyn/Dub.reloc	2019-09-27 11:34:16.000000000 +0100
+@@ -1,12 +1,12 @@
+ 
+-hs/static/Dub.o:	file format Mach-O 64-bit x86-64
++hs/dyn/Dub.o:	file format Mach-O 64-bit x86-64
+ 
+ RELOCATION RECORDS FOR [__text]:
+-0000000000000048 X86_64_RELOC_SUBTRACTOR _Dub_dub_info-_Dub_dub_info_dsp
+-0000000000000048 X86_64_RELOC_UNSIGNED _Dub_dub_info
+-0000000000000040 X86_64_RELOC_SIGNED _Dub_dub_closure
+-0000000000000039 X86_64_RELOC_BRANCH _base_GHCziNum_zt_info
+-0000000000000024 X86_64_RELOC_SIGNED _stg_ap_pp_info
++0000000000000049 X86_64_RELOC_SUBTRACTOR _Dub_dub_info-_Dub_dub_info_dsp
++0000000000000049 X86_64_RELOC_UNSIGNED _Dub_dub_info
++0000000000000041 X86_64_RELOC_SIGNED _Dub_dub_closure
++000000000000003a X86_64_RELOC_GOT _base_GHCziNum_zt_info@GOTPCREL
++0000000000000024 X86_64_RELOC_GOT_LOAD _stg_ap_pp_info@GOTPCREL
+ 
+ RELOCATION RECORDS FOR [__data]:
+ 0000000000000030 X86_64_RELOC_UNSIGNED _r1bm_closure
+#+end_example
+
+#+BEGIN_SRC shell :results output :dir "~/ghc"
+  find . -d -iname 'ghci' | grep -v '_build\|testsuite\|docs\|driver' | sort
+#+END_SRC
+
+#+RESULTS:
+: ./compiler/ghci
+: ./ghc/GHCi
+: ./libraries/base/GHC/GHCi
+: ./libraries/ghci
+: ./libraries/ghci/GHCi
+: ./libraries/libiserv/src/GHCi
+
+#+BEGIN_SRC shell :dir "~/ghc" :results output
+  tree compiler/ghci
+  cloc compiler/ghci
+  cloc compiler/ghci/Linker.hs
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+compiler/ghci
+├── ByteCodeAsm.hs
+├── ByteCodeGen.hs
+├── ByteCodeInstr.hs
+├── ByteCodeItbls.hs
+├── ByteCodeLink.hs
+├── ByteCodeTypes.hs
+├── Debugger.hs
+├── GHCi.hs
+├── Linker.hs
+├── LinkerTypes.hs
+├── RtClosureInspect.hs
+└── keepCAFsForGHCi.c
+
+0 directories, 12 files
+      12 text files.
+classified 12 files      12 unique files.                              
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.82  T=0.03 s (365.6 files/s, 227997.0 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Haskell                         11           1031           1735           4703
+C                                1              4              5              6
+-------------------------------------------------------------------------------
+SUM:                            12           1035           1740           4709
+-------------------------------------------------------------------------------
+       1 text file.
+       1 unique file.                              
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.82  T=0.01 s (92.1 files/s, 155235.5 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Haskell                          1            262            422           1002
+-------------------------------------------------------------------------------
+#+end_example
+
+#+BEGIN_SRC shell :dir ~/ghc :results output
+  tree libraries/ghci/GHCi
+  cloc libraries/ghci/GHCi
+  cloc libraries/ghci/GHCi/ObjLink.hs
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  libraries/ghci/GHCi
+  ├── BinaryArray.hs
+  ├── BreakArray.hs
+  ├── CreateBCO.hs
+  ├── FFI.hsc
+  ├── InfoTable.hsc
+  ├── Message.hs
+  ├── ObjLink.hs
+  ├── RemoteTypes.hs
+  ├── ResolvedBCO.hs
+  ├── Run.hs
+  ├── Signals.hs
+  ├── StaticPtrTable.hs
+  ├── TH
+  │   └── Binary.hs
+  └── TH.hs
+
+  1 directory, 14 files
+        14 text files.
+  classified 14 files      14 unique files.                              
+         2 files ignored.
+
+  github.com/AlDanial/cloc v 1.82  T=0.02 s (692.4 files/s, 123645.3 lines/s)
+  -------------------------------------------------------------------------------
+  Language                     files          blank        comment           code
+  -------------------------------------------------------------------------------
+  Haskell                         12            292            414           1437
+  -------------------------------------------------------------------------------
+  SUM:                            12            292            414           1437
+  -------------------------------------------------------------------------------
+         1 text file.
+         1 unique file.                              
+         0 files ignored.
+
+  github.com/AlDanial/cloc v 1.82  T=0.01 s (157.6 files/s, 30723.5 lines/s)
+  -------------------------------------------------------------------------------
+  Language                     files          blank        comment           code
+  -------------------------------------------------------------------------------
+  Haskell                          1             27             45            123
+  -------------------------------------------------------------------------------
+#+end_example
+
+#+BEGIN_SRC haskell :tangle hs/Foo.hs
+  module Foo(foo) where
+  import Dub
+
+  foo a = dub a + 1
+#+END_SRC
+
+#+BEGIN_SRC haskell :tangle hs/Bar.hs
+  module Bar(bar) where
+  import Foo
+
+  bar a = even $ foo a
+#+END_SRC
+
+#+BEGIN_SRC shell :results output
+  ghc-dev -c -dynamic hs/Dub.hs -outputdir hs/dyn/
+  ghc-dev -c -dynamic hs/Foo.hs -outputdir hs/dyn/ -ihs/dyn
+  ghc-dev -c -dynamic hs/Bar.hs -outputdir hs/dyn/ -ihs/dyn
+#+END_SRC
+
+#+RESULTS:
+
+#+begin_example
+  $ ghc-dev --interactive -outputdir dyn +RTS -Dl
+  initLinker: start
+  ...
+  Prelude> :l Dub Foo Bar
+  Ok, three modules loaded.
+  Prelude Dub> :m Dub Foo Bar
+  Prelude Dub Foo Bar> dub 1
+  addDLL: dll_name = '[tmp-folder]/libghc_1.dylib'
+  internal_dlopen: dll_name = '[tmp-folder]/libghc_1.dylib'
+  ...
+  1
+  Prelude Dub Foo Bar> foo 2
+  addDLL: dll_name = '[tmp-forlder]/libghc_3.dylib'
+  internal_dlopen: dll_name = '[tmp-folder]/libghc_3.dylib'
+  ...
+  5
+  Prelude Dub Foo Bar> bar 3
+  addDLL: dll_name = '[tmp-folder]/libghc_5.dylib'
+  internal_dlopen: dll_name = '[tmp-folder]/libghc_5.dylib'
+  ...
+  True
+  Prelude Dub Foo Bar> :l Bar
+  Ok, three modules loaded.
+  Prelude Bar> bar 4
+  addDLL: dll_name = '[tmp-folder]/libghc_7.dylib'
+  internal_dlopen: dll_name = '[tmp-folder]/libghc_7.dylib'
+  ...
+  False
+  Prelude Bar> :l Bar
+  Ok, three modules loaded.
+  Prelude Bar> bar 5
+  addDLL: dll_name = '[tmp-folder]/libghc_9.dylib'
+  internal_dlopen: dll_name = '[tmp-folder]/libghc_9.dylib'
+  ...
+  True
+#+end_example
+
+#+begin_example
+  ls -lah [tmp-folder]
+  747B   ghc_8.rsp
+  8.7K   libghc_1.dylib
+  9.4K   libghc_3.dylib
+   10K   libghc_5.dylib
+   11K   libghc_7.dylib
+   11K   libghc_9.dylib
+#+end_example
+
+#+begin_example
+  $ lsof -c ghc | grep libghc_
+  CMD     PID   FD      TYPE SIZE/OFF  NAME
+  ghc     91710 txt      REG     8928  [tmp-folder]/libghc_1.dylib
+  ghc     91710 txt      REG     9608  [tmp-folder]/libghc_3.dylib
+  ghc     91710 txt      REG    10420  [tmp-folder]/libghc_5.dylib
+  ghc     91710 txt      REG    11344  [tmp-folder]/libghc_7.dylib
+  ghc     91710 txt      REG    11344  [tmp-folder]/libghc_9.dylib
+#+end_example
+
+#+BEGIN_SRC shell :results output :dir /var/folders/rp/j24g7cbn02v1kbdlk75bnptc0000gn/T/ghc91710_0/
+  export PAT='.*F.*\(Dub_dub\|Foo_foo\|Bar_bar\).*'
+  objdump -t libghc_1.dylib | grep $PAT | cat
+  echo
+  objdump -t libghc_3.dylib | grep $PAT | cat
+  echo
+  objdump -t libghc_5.dylib | grep $PAT | cat
+  echo
+  objdump -t libghc_7.dylib | grep $PAT | cat
+  echo
+  objdump -t libghc_9.dylib | grep $PAT | cat
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  0000000000000f60 l     F __TEXT,__text	_dsp__Dub_dub_info_dsp
+  0000000000000f78 g     F __TEXT,__text	_Dub_dub_info
+
+  0000000000000f18 l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
+  0000000000000f30 g     F __TEXT,__text	_Foo_foo_info
+
+  0000000000000e80 l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
+  0000000000000e98 g     F __TEXT,__text	_Bar_bar_info
+
+  0000000000000ae8 l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
+  0000000000000b80 l     F __TEXT,__text	_dsp__Dub_dub_info_dsp
+  0000000000000e68 l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
+  0000000000000e80 g     F __TEXT,__text	_Bar_bar_info
+  0000000000000b98 g     F __TEXT,__text	_Dub_dub_info
+  0000000000000b00 g     F __TEXT,__text	_Foo_foo_info
+
+  0000000000000ae8 l     F __TEXT,__text	_dsp__Foo_foo_info_dsp
+  0000000000000b80 l     F __TEXT,__text	_dsp__Dub_dub_info_dsp
+  0000000000000e68 l     F __TEXT,__text	_dsp__Bar_bar_info_dsp
+  0000000000000e80 g     F __TEXT,__text	_Bar_bar_info
+  0000000000000b98 g     F __TEXT,__text	_Dub_dub_info
+  0000000000000b00 g     F __TEXT,__text	_Foo_foo_info
+#+end_example
+
+** -vanilla
+#+BEGIN_SRC shell :dir ~/ghc :results output
+  tree rts -P '*Linker*' --matchdirs --ignore-case
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+rts
+├── Linker.c
+├── LinkerInternals.h
+├── dist
+├── eventlog
+├── hooks
+├── linker
+│   ├── CacheFlush.c
+│   ├── CacheFlush.h
+│   ├── ELFRelocs
+│   │   ├── AArch64.def
+│   │   ├── ARM.def
+│   │   ├── LICENSE-LLVM.TXT
+│   │   ├── i386.def
+│   │   └── x86_64.def
+│   ├── Elf.c
+│   ├── Elf.h
+│   ├── ElfTypes.h
+│   ├── LoadArchive.c
+│   ├── M32Alloc.c
+│   ├── M32Alloc.h
+│   ├── MachO.c
+│   ├── MachO.h
+│   ├── MachOTypes.h
+│   ├── PEi386.c
+│   ├── PEi386.h
+│   ├── PEi386Types.h
+│   ├── SymbolExtras.c
+│   ├── SymbolExtras.h
+│   ├── elf_compat.h
+│   ├── elf_got.c
+│   ├── elf_got.h
+│   ├── elf_plt.c
+│   ├── elf_plt.h
+│   ├── elf_plt_aarch64.c
+│   ├── elf_plt_aarch64.h
+│   ├── elf_plt_arm.c
+│   ├── elf_plt_arm.h
+│   ├── elf_reloc.c
+│   ├── elf_reloc.h
+│   ├── elf_reloc_aarch64.c
+│   ├── elf_reloc_aarch64.h
+│   ├── elf_util.c
+│   ├── elf_util.h
+│   └── util.h
+├── posix
+│   └── itimer
+├── sm
+└── win32
+
+9 directories, 39 files
+#+end_example
+
+
+#+BEGIN_SRC shell :dir ~/ghc/rts :results output
+  cloc Linker.c LinkerInternals.h linker/*
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+        39 text files.
+  classified 39 files      39 unique files.                              
+         1 file ignored.
+
+  github.com/AlDanial/cloc v 1.82  T=0.08 s (448.7 files/s, 137630.2 lines/s)
+  ---------------------------------------------------------------------------------------
+  Language                             files          blank        comment           code
+  ---------------------------------------------------------------------------------------
+  C                                       15           1247           1977           6810
+  C/C++ Header                            19            217            265            710
+  Windows Module Definition                4              9              0            422
+  ---------------------------------------------------------------------------------------
+  SUM:                                    38           1473           2242           7942
+  ---------------------------------------------------------------------------------------
+#+end_example
+
+#+begin_example
+  section_64 * section = &oc->info->macho_sections[i];
+  ...
+  zeroFillArea = mmap(section->size, MAP_ANONYMOUS, -1, 0);
+  section->offset = zeroFillArea - oc->image;
+
+  // MacOS SDK/mach-o/loader.h -> section_64
+  struct section_64 { /* for 64-bit architectures */
+          uint32_t	offset;		/* file offset of this section */
+  };
+#+end_example
+
+#+BEGIN_SRC c
+  int
+  ocBuildSegments_MachO(ObjectCode *oc)
+  {
+          size_t size_rxSegment = 0;
+          size_t size_rwSegment = 0;
+          size_t size_gbZerofillSegment = 0;
+          for (int i = 0; i < oc->n_sections; i++) {
+                  MachOSection *macho = &oc->info->macho_sections[i];
+                  size_t alignment = 1 << macho->align;
+
+                  // depending on the type of i'th section
+                  size_[xx]Segment = roundUpToAlign(size_[xx]Segment, alignment);
+                  size_[xx]Segment += macho->size;
+          }
+
+          size_compound = roundUpToPage(size_rxSegment) +
+                  roundUpToPage(size_rwSegment) +
+                  roundUpToPage(size_gbZerofillSegment);
+
+          mem = mmapForLinker(size_compound, MAP_ANON, -1, 0);
+  }
+#+END_SRC
+
+* Questions
+** DONE Why changing ~DynamicGhcPrograms~ doesn't trigger ~exe~ rebuild
+Currently, it seems the only way to rebuild binaries is to =rm bin/= and trigger a build with another flavor.
+*** Related rules seem to be in =hadrian/../Program.hs/buildBinary=
+*** DONE How does shake tracks dependency on flags (or in this case =DynamicGhcPrograms= flag)?
+It doesn't not, that's the problem. I've submitted a MR that fixes the issue by introducing an oracle for relevant options.
+** TODO How GHCi checks if an object file is valid for loading
+It does use an interface ~.hi~ file, but I can find where's the check
+exactly.  If a put a /wrong way/ binary near to the /right way/
+interface, ghci /adds it to the list/ without complaints, but later
+fails with
+#+begin_example
+  ld: illegal text reloc in '_Dub_dub_info' to '_stg_ap_pp_info' for architecture x86_64
+  clang: error: linker command failed with exit code 1 (use -v to see invocation)
+  `clang' failed in phase `Linker'. (Exit code: 1)
+#+end_example
+** TODO Prepare examples to show difference between -static and -dynamic linking
+*** asm and relocs in object files
+*** behaviour wrt to GHCi

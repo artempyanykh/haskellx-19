@@ -1,1 +1,1 @@
-/Users/artempyanykh/@dev/haskellx-19/code/Bar.hs
+../Bar.hs

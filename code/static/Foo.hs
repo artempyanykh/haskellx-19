@@ -1,1 +1,1 @@
-/Users/artempyanykh/@dev/haskellx-19/code/Foo.hs
+../Foo.hs

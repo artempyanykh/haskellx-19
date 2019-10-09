@@ -1,1 +1,1 @@
-/Users/artempyanykh/@dev/haskellx-19/code/Main.hs
+../Main.hs
