@@ -330,7 +330,6 @@ $ ghci
 
 ---
 
-[.code-highlight: none]
 ```haskell
 module Foo (foo) where
 
@@ -853,6 +852,16 @@ ocBuildSegments_MachO(ObjectCode *oc)
 ---
 
 ![](images/static-vs-dynamic.png)
+
+---
+
+|          | Static             | Dynamic                    |
+|----------|--------------------|----------------------------|
+| :star:   | Small overhead     | Simple implementation      |
+| :star:   | Space efficient    | Can support more platforms |
+| :star:   | Can unload modules | Low maintenance            |
+| :hankey: | Complex            | Loading is costly          |
+| :hankey: | Bugs               | Accumulates loaded modules |
 
 ---
 
